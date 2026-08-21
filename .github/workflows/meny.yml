@@ -1,0 +1,38 @@
+name: Uppdatera meny-RSS
+
+on:
+  schedule:
+    # Körs varje vardagsmorgon kl 05:00 svensk tid.
+    # OBS: cron-tider i GitHub Actions är alltid UTC. 05:00 svensk tid
+    # (sommartid, UTC+2) = 03:00 UTC. Justera vid behov (t.ex. vintertid UTC+1 -> 04:00 UTC).
+    - cron: "0 3 * * 1-5"
+  workflow_dispatch: {}   # gör att man kan trigga en körning manuellt från GitHub-gränssnittet
+
+permissions:
+  contents: write
+
+jobs:
+  uppdatera-feed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checka ut repot
+        uses: actions/checkout@v4
+
+      - name: Sätt upp Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installera beroenden
+        run: pip install -r requirements.txt
+
+      - name: Hämta menyn och bygg RSS-feed
+        run: python hamta_meny.py
+
+      - name: Committa och pusha uppdaterade feeds
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git diff --quiet --cached || git commit -m "Uppdaterad meny $(date -u +%Y-%m-%d)"
+          git push
