@@ -2,10 +2,10 @@ name: Uppdatera meny-RSS
 
 on:
   schedule:
-    # Körs varje vardagsmorgon kl 05:00 svensk tid.
-    # OBS: cron-tider i GitHub Actions är alltid UTC. 05:00 svensk tid
+    # Körs varje vardagsmorgon kl 05:17 svensk tid.
+    # OBS: cron-tider i GitHub Actions är alltid UTC. 05:17 svensk tid
     # (sommartid, UTC+2) = 03:00 UTC. Justera vid behov (t.ex. vintertid UTC+1 -> 04:00 UTC).
-    - cron: "0 3 * * 1-5"
+    - cron: "17 3 * * 1-5"
   workflow_dispatch: {}   # gör att man kan trigga en körning manuellt från GitHub-gränssnittet
 
 permissions:
