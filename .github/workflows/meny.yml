@@ -5,7 +5,7 @@ on:
     # Körs varje vardagsmorgon kl 05:17 svensk tid.
     # OBS: cron-tider i GitHub Actions är alltid UTC. 05:17 svensk tid
     # (sommartid, UTC+2) = 03:00 UTC. Justera vid behov (t.ex. vintertid UTC+1 -> 04:00 UTC).
-    - cron: "17 2 * * 1-5"
+    - cron: "17 1 * * 1-5"
   workflow_dispatch: {}   # gör att man kan trigga en körning manuellt från GitHub-gränssnittet
 
 permissions:
